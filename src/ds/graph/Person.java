@@ -5,27 +5,49 @@ import java.util.Objects;
 
 public class Person {
 	
-	String name = " ";
-	int age = 0;
+
+	public String name = " ";
+	public int age = 0;
 	float socialHygine = 0;
 	Float  getInfectiveness;
+	
 	ArrayList<Person> contacts = new ArrayList<Person>();
 	
+	public String getName() {
+		return name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public float getSocialHygine() {
+		return socialHygine;
+	}
+	
+	public Float getInfectiveness() {
+		return getInfectiveness;
+	}
+
 	public Person(String name, int age, float socialHygine) {
-		name = this.name;
-		age = this.age;
-		socialHygine = this.socialHygine;
+		this.name = name;
+		this.age=age;
+		this.socialHygine = socialHygine;
 	}
 	
 	public float calcInfectiveness(int age, float socialHygine) {
-		float infectiveness = 0;
 		
-		infectiveness =  (age/100)-(socialHygine *(age/100));
-		return infectiveness;
+		float tempAge = (float)age;
+		
+		
+		
+		this.getInfectiveness=  (tempAge/100)-(socialHygine *(tempAge/100));
+		
+		return this.getInfectiveness;
 	}
 	@Override
 	public String toString() {
-		return "Person: "+ name +" , "+ age +" . Contacts: " + contacts + "";
+		return "Person: "+ name +" , "+ age +" , Contacts: " + contacts + "";
 	}
 
 	@Override
@@ -44,7 +66,15 @@ public class Person {
 		Person other = (Person) obj;
 		return Objects.equals(contacts, other.contacts);
 	}
-
-		
 	
+	public static void main (String args[]) {
+		
+		Person p1 = new Person("Alice", 20, .2f);
+		System.out.println(p1.name);
+		
+	  
+		
+	}
+	
+
 }

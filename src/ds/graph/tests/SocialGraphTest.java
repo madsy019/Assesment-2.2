@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ds.graph.Person;
+import ds.graph.PersonAlreadyExistsException;
 import ds.graph.SocialGraph;
 
 class SocialGraphTest {
@@ -16,7 +17,7 @@ class SocialGraphTest {
 	@BeforeEach
 	void setUp() throws Exception {
 	
-		// Create Persons to insert into the social graph. 
+	// Create Persons to insert into the social graph. 
 		Person a1 = new Person("Alice", 20, .2f);
 		Person a2 = new Person("Abigail", 30, .43f);
 		Person a3 = new Person("Anna", 40, .13f);
@@ -28,6 +29,8 @@ class SocialGraphTest {
 		sg.addVertex(a3);
 		sg.addVertex(a4);
 		sg.addVertex(a5);
+
+
 		
 		sg.addEdge(a1, a2);
 		sg.addEdge(a1, a3);
@@ -35,8 +38,7 @@ class SocialGraphTest {
 		
 		sg.addEdge(a2, a4);
 		sg.addEdge(a2, a5);
-	
-		
+
 		Person b1 = new Person("Bethany", 35, .78f);
 		Person b2 = new Person("Bernice", 55, .86f);
 		Person b3 = new Person("Blake", 85, .27f);
@@ -95,5 +97,7 @@ class SocialGraphTest {
 		
 		sg.addEdge(c8, c1);
 	}
+	
+
 
 }

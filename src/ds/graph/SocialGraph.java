@@ -10,7 +10,6 @@ public class SocialGraph {
 		
 	}
 	
-	
 	/**
 	 * Add the given person to the graph. The person needs to be added to the list of vertices.
 	 * 
@@ -20,12 +19,23 @@ public class SocialGraph {
 	 */
 	public void addVertex(Person p) throws PersonAlreadyExistsException {
 		
-		if(vertices.contains(p) == true) {
-			throw new PersonAlreadyExistsException("This peron already present in the arrray");
-		}else if(vertices.contains(p) == false){
-			vertices.add(p);
+		for(int i = 0; i<vertices.size();i++) {
+			if(vertices.get(i).equals(p)) {
+				throw new PersonAlreadyExistsException("This person already present in the arrray");
+			}else {
+				vertices.add(p);
+				System.out.println(p.age);
+			}
 		}
 		
+//		if(vertices.contains(p) == true) {
+//			throw new PersonAlreadyExistsException("This person already present in the arrray");
+//		}else if(vertices.contains(p) == false){
+//			vertices.add(p);
+//			
+//			System.out.println(p.age);
+//		}
+		//also call the equal method to 
 		
 	}
 	
@@ -35,13 +45,27 @@ public class SocialGraph {
 	 * 
 	 * @throws PersonDoesNotExist If the given person is not found inside the graph. 
 	 * @param p
+	 * @throws EdgeDoesNotExistException 
 	 */
-	public void removeVertex(Person p) throws PersonDoesNotExistException {
-		if(vertices.contains(p) == true) {
-			throw new PersonDoesNotExistException("This peron already present in the arrray");
-		}else if(vertices.contains(p) == false){
-			vertices.add(p);
+	public void removeVertex(Person p) throws PersonDoesNotExistException, EdgeDoesNotExistException {
+		
+		
+		
+		for(int i = 0; i<vertices.size();i++) {
+			if(vertices.contains(p)) {
+				vertices.remove(p);
+				
+			}else {
+				throw new PersonDoesNotExistException("This person is no found in the array");
+			}
+			
+		
+		//loop all the other verticies(stuff in the person contact list) and check if they have a edge connected to this deleted vertex and then delete them too
+			removeEdge(p, vertices.get(i) );
 		}
+		
+		
+	
 	}
 	
 	/**
@@ -55,8 +79,24 @@ public class SocialGraph {
 	 * 
 	 * @throws PersonDoesNotExist	If the person is not found within the graph. 
 	 */
-	public void addEdge(Person a, Person b) {
+	public void addEdge(Person a, Person b) throws PersonDoesNotExistException {
 		
+		//loop though the contact list to find out if person a is in person b's list and vice versa
+		
+		
+		for(int i = 0; i<vertices.size();i++) {
+			//can improve this by adding or /and conditions
+			if((a.contacts.get(i).equals(b)) || (b.contacts.get(i).equals(a)) ) {
+				
+				throw new PersonDoesNotExistException("This person already present in the arrray");
+				
+			}else {
+				a.contacts.add(b);
+				b.contacts.add(b);
+			}
+			
+			
+		}
 	}
 	
 	/**
@@ -66,10 +106,30 @@ public class SocialGraph {
 	 * @throws EdgeDoesNotExist
 	 * @param a
 	 * @param b
+	 * @throws EdgeDoesNotExistException 
 	 */
-	public void removeEdge(Person a, Person b) {
+	public void removeEdge(Person a, Person b) throws EdgeDoesNotExistException {
 		
+		for(int i = 0; i<vertices.size();i++) {
+			
+			if(a.contacts.get(i).equals(b)) {
+				
+				a.contacts.remove(i);
+				
+			}else {
+				throw new EdgeDoesNotExistException("This edge does not exist");
+			}
+			
+			if(b.contacts.get(i).equals(a)) {
+				
+				b.contacts.remove(i);
+				
+			}else {
+				throw new EdgeDoesNotExistException("This edge does not exist");
+			}
+		}
 	}
+	
 	
 	/**
 	 * Implement a breadth-first search, from Person start to target. 
@@ -82,6 +142,16 @@ public class SocialGraph {
 	 * @return A list of nodes that must be traversed to get to target, from start. 
 	 */
 	public ArrayList<Person> searchBFS(Person start, Person target) {
+		
+		int verticesCount = vertices.size();
+		
+		boolean visited[] = new boolean[verticesCount];
+		
+		ArrayList<Person> BFSList = new ArrayList<Person> ();
+		
+		visited[start] = true;
+		BFSList.add(start);
+		
 		return null;
 	}
 	
@@ -139,4 +209,6 @@ public class SocialGraph {
 	public int countContacts(Person start) {
 		return 0;
 	}
+	
+	
 }
