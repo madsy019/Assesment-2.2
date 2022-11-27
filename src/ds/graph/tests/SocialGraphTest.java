@@ -16,7 +16,7 @@ class SocialGraphTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-	
+		
 	// Create Persons to insert into the social graph. 
 		Person a1 = new Person("Alice", 20, .2f);
 		Person a2 = new Person("Abigail", 30, .43f);
@@ -72,6 +72,7 @@ class SocialGraphTest {
 		Person c9 = new Person("Chadwick", 27, .78f);
 		Person c10 = new Person("Charlie", 23, .78f);
 		
+		
 		sg.addVertex(c1);
 		sg.addVertex(c2);
 		sg.addVertex(c3);
@@ -118,11 +119,32 @@ class SocialGraphTest {
 	
 	@Test
 	public void testRemoveEdge(){
-				
+	
+		
+		
+	}
+	@Test
+	public void testGraphBFS() {
+		
+	}
+	
+	@Test
+	public void testGraphDFS() {
+		
+	}
+	
+
+	@Test
+	public void testWeightedGraphBFS() {
+		
+	}
+	
+	@Test
+	public void testWeightedgGraphDFS() {
 		
 	}
 	
 	
-
+	
 
 }
