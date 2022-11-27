@@ -59,6 +59,7 @@ class SocialGraphTest {
 		sg.addEdge(b1, a2);
 		sg.addEdge(b5, a3);
 		
+		
 
 		Person c1 = new Person("Calissa", 36, .78f);
 		Person c2 = new Person("Cassy", 37, .78f);
@@ -97,6 +98,30 @@ class SocialGraphTest {
 		
 		sg.addEdge(c8, c1);
 	}
+	@Test
+	public void testAddVertex(){
+				
+		
+	}
+	
+	@Test
+	public void testRemoveVertex(){
+				
+		
+	}
+	
+	@Test
+	public void testAddEdge(){
+				
+		
+	}
+	
+	@Test
+	public void testRemoveEdge(){
+				
+		
+	}
+	
 	
 
 

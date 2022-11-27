@@ -1,14 +1,18 @@
 package ds.graph;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 public class SocialGraph {
 	
-	ArrayList<Person> vertices = new ArrayList<Person>();
+	static ArrayList<Person> vertices = new ArrayList<Person>();
 	
 	public SocialGraph() {
 		
 	}
+	
 	
 	/**
 	 * Add the given person to the graph. The person needs to be added to the list of vertices.
@@ -24,7 +28,6 @@ public class SocialGraph {
 				throw new PersonAlreadyExistsException("This person already present in the arrray");
 			}else {
 				vertices.add(p);
-				System.out.println(p.age);
 			}
 		}
 		
@@ -60,7 +63,7 @@ public class SocialGraph {
 			}
 			
 		
-		//loop all the other verticies(stuff in the person contact list) and check if they have a edge connected to this deleted vertex and then delete them too
+		//loop all the other vertices (stuff in the person contact list) and check if they have a edge connected to this deleted vertex and then delete them too
 			removeEdge(p, vertices.get(i) );
 		}
 		
@@ -143,16 +146,33 @@ public class SocialGraph {
 	 */
 	public ArrayList<Person> searchBFS(Person start, Person target) {
 		
-		int verticesCount = vertices.size();
+		ArrayList<Person> visited = new ArrayList<Person> ();
 		
-		boolean visited[] = new boolean[verticesCount];
+		Queue<Person> BFSList = new LinkedList<Person>();
 		
-		ArrayList<Person> BFSList = new ArrayList<Person> ();
 		
-		visited[start] = true;
+		
 		BFSList.add(start);
 		
-		return null;
+		visited.add(start);
+		
+		while(BFSList.size() != 0) {
+			Person temp  = BFSList.poll();
+			
+			for(int i = 0; i< temp.contacts.size();i++) {
+				if(!visited.contains(temp.contacts.get(i))) {
+					visited.add(temp.contacts.get(i));
+					BFSList.add(temp.contacts.get(i));
+					System.out.println(temp.contacts.get(i));
+				}
+			}
+		}
+
+		ArrayList<Person> output = new ArrayList<Person> (BFSList);
+		
+		return output;
+		
+		
 	}
 	
 	/**
@@ -180,7 +200,34 @@ public class SocialGraph {
 	 * @return A list of nodes that must be traversed to get to target, from start. 
 	 */
 	public ArrayList<Person> searchDFS(Person start, Person target) {
-		return null;
+		Stack<Person> DFSList = new Stack<Person>();
+		ArrayList<Person> visited = new ArrayList<Person> ();
+		
+		
+		
+//		visited[start] = true;
+		DFSList.push(start);
+		
+		
+		
+		while(!DFSList.equals(target) ) {
+			
+			
+			Person temp =  DFSList.pop();
+				
+				
+				if(!visited.contains(temp)) {
+					visited.add(temp);
+					
+					for(int j = 0; j< temp.contacts.size();j++) {
+						//getting the value at 
+						DFSList.push(temp.contacts.get(j));
+					}
+				}
+			}
+			
+		
+		return visited;
 	}
 	
 	/**
@@ -207,8 +254,73 @@ public class SocialGraph {
 	 * @return
 	 */
 	public int countContacts(Person start) {
-		return 0;
+		
+		int value = 0;
+		int contactCount = 0;
+		ArrayList<Person> visited = new ArrayList<Person> ();
+		
+		Queue<Person> BFSList = new LinkedList<Person>();
+		
+		
+		BFSList.add(start);
+		
+		visited.add(start);
+		while(value < 2) {
+			while(BFSList.size() != 0) {
+				Person temp  = BFSList.poll();
+				
+				for(int i = 0; i< temp.contacts.size();i++) {
+					if(!visited.contains(temp.contacts.get(i))) {
+						visited.add(temp.contacts.get(i));
+						BFSList.add(temp.contacts.get(i));
+						
+						contactCount +=1;
+						
+					}
+				value += 1;
+				}
+			
+			}
+		}
+		return contactCount;
 	}
 	
+
+	
+	
+	public static void main(String args[]) throws PersonAlreadyExistsException, PersonDoesNotExistException {
+		
+		SocialGraph sg = new SocialGraph();
+		
+		Person a1 = new Person("Alice", 20, .2f);
+		Person a2 = new Person("Abigail", 30, .43f);
+		Person a3 = new Person("Anna", 40, .13f);
+		Person a4 = new Person("Andy", 50, .79f);
+		Person a5 = new Person("Aaron", 60, .98f);
+		
+		sg.addVertex(a1);
+		sg.addVertex(a2);
+		sg.addVertex(a3);
+		sg.addVertex(a4);
+		sg.addVertex(a5);
+		
+		sg.addEdge(a1, a2);
+		sg.addEdge(a1, a3);
+		sg.addEdge(a1, a4);
+		
+		sg.addEdge(a2, a4);
+		sg.addEdge(a2, a5);
+		
+		System.out.println(a1.toString());
+		System.out.println();
+		
+		
+		sg.searchBFS(a4, a5);
+		
+		for(int i = 0; i< vertices.size();i++) {
+				System.out.println(i);
+		}
+	
+	}
 	
 }

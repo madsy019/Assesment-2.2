@@ -3,8 +3,7 @@ package ds.graph;
 
 import java.util.ArrayList;
 
-public class BusinessGraph {
-
+public class BusinessGraph{	
 	
 	ArrayList<Business> vertices = new ArrayList<Business> ();
 	

@@ -9,24 +9,15 @@ public class Person {
 	public String name = " ";
 	public int age = 0;
 	float socialHygine = 0;
-	Float  getInfectiveness;
+	private Float  getInfectiveness;
+	
+	Business destinationBusiness;
 	
 	ArrayList<Person> contacts = new ArrayList<Person>();
 	
-	public String getName() {
-		return name;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public float getSocialHygine() {
-		return socialHygine;
-	}
 	
 	public Float getInfectiveness() {
-		return getInfectiveness;
+		return this.getInfectiveness;
 	}
 
 	public Person(String name, int age, float socialHygine) {
@@ -34,6 +25,7 @@ public class Person {
 		this.age=age;
 		this.socialHygine = socialHygine;
 	}
+	
 	
 	public float calcInfectiveness(int age, float socialHygine) {
 		
@@ -45,9 +37,24 @@ public class Person {
 		
 		return this.getInfectiveness;
 	}
+	
+	
+	public void setBusiness(Business bus) {
+		this.destinationBusiness = bus;
+	}
+	
+	public Business getBusiness() {
+		return this.destinationBusiness;
+	}
+	
 	@Override
 	public String toString() {
-		return "Person: "+ name +" , "+ age +" , Contacts: " + contacts + "";
+		if(this.destinationBusiness == null) {
+			return "Person: "+ name +" , "+ age +" , Contacts: " + contacts + "";
+		}else {
+			return "Person: "+ name +" , "+ age +" , Contacts: " + contacts + " , Business: " +destinationBusiness+ "" ;
+		}
+		
 	}
 
 	@Override
@@ -67,14 +74,7 @@ public class Person {
 		return Objects.equals(contacts, other.contacts);
 	}
 	
-	public static void main (String args[]) {
-		
-		Person p1 = new Person("Alice", 20, .2f);
-		System.out.println(p1.name);
-		
-	  
-		
-	}
+
 	
 
 }
